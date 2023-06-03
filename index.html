@@ -1,35 +1,149 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Gastos de Movilidad</title>
+</head>
+<body>
+  <h1>GASTOS DE MOVILIDAD - DEPARTAMENTO A - DIVISION 1</h1>
 
-        <head> 
-            <title>Vincenzo's Web Page</title>
-        </head>
+  <form id="inputForm">
+    <label for="fullName">Apellido y Nombre:</label>
+    <input type="text" id="fullName" required><br>
 
-        <body 
-            style="background-color:powderblue;"
-            <p> This is Vincenzo's first web page, as a way of learning. </p> 
-            <p> This site is under permanent construction. </p> 
-            <p> Welcome to everyone  !!! </p>
-            <p> This is just the beginning and the only limit is the sky itself !!! </p>
-            <p> The current date and time are : </p>
-            <script src="./date.js"></script> <br><br>
-            <a href="https://www.w3schools.com"> This is a link to w3schools.com </a>  
-            <p> They are Sofia - aka Sofi -  and Jaime (right), both superior beings and pure cosmic energy, RIP. </p> 
-            <img src = "./img/Sofia.jpg" width = "280" height = "230" alt = " She is Sofi">
-            <img src = "./img/Jaime 2015-10-14.jpg" width = "230" height = "210" alt = " He is Jaime">
+    <label for="dni">D.N.I.:</label>
+    <input type="number" id="dni" required><br>
 
-            <h2> Link to an Email Address </h2>
-            <p> <a href="mailto:vnatale52@gmail.com"> Send email </a> </p>
-            <br> <br>
-            <img src = "./1.jpg" width = "1000" height = "1000" > 
-            <br> <br>
-            <img src = "./2.jpg" width = "1000" height = "1000" >
-            <br> <br>
-            <img src = "./3.jpg" width = "1000" height = "1000" >
-            <br> <br>
-            <img src = "./4.jpg" width = "1000" height = "1000" >
+    <label for="travelValue">Valor del Viaje:</label>
+    <input type="number" id="travelValue" step="0.01" required><br>
 
+    <label for="tripsPerDay">Nro.de Viajes por día:</label>
+    <input type="number" id="tripsPerDay" required><br>
 
-        </body> 
+    <label for="month">Mes (1-12):</label>
+    <input type="number" id="month" min="1" max="12" required><br>
 
- </html>
+    <label for="year">Año:</label>
+    <input type="number" id="year" required><br>
+
+    <label for="holidayInput">Días festivos (separados por comas):</label>
+    <input type="text" id="holidayInput" required><br>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  <h2>Resultados:</h2>
+  <div id="output"></div>
+
+  <script>
+    function getDaysInMonth(year, month) {
+      return new Date(year, month + 1, 0).getDate();
+    }
+
+    function isHoliday(day, holidays) {
+      return holidays.includes(day);
+    }
+
+    function isNonWorkingDay(day) {
+      const weekday = new Date(day).getDay();
+      return weekday === 0 || weekday === 6; // Sunday (0) or Saturday (6)
+    }
+
+    function filterWorkingDays(year, month, holidays) {
+      const workingDays = [];
+      const totalDays = getDaysInMonth(year, month);
+
+      for (let day = 1; day <= totalDays; day++) {
+        const currentDate = new Date(year, month, day);
+
+        if (!isHoliday(day, holidays) && !isNonWorkingDay(currentDate)) {
+          workingDays.push(currentDate);
+        }
+      }
+
+      return workingDays;
+    }
+
+    function printArrayElements(array) {
+      array.forEach((element) => {
+        const formattedDate = element.toDateString();
+        const pElement = document.createElement('p');
+        pElement.textContent = formattedDate;
+        document.getElementById('output').appendChild(pElement);
+      });
+    }
+
+    function numberToWords(number) {
+  const units = ['', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
+  const tens = ['', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+  const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
+
+  if (number < 20) {
+    return units[number];
+  }
+
+  if (number < 100) {
+    return tens[Math.floor(number / 10)] + ' ' + units[number % 10];
+  }
+
+  if (number < 1000) {
+    const remainder = number % 100;
+    const quotient = Math.floor(number / 100);
+    return hundreds[quotient] + ' ' + (remainder > 0 ? 'y ' + numberToWords(remainder) : '');
+  }
+
+  if (number < 10000) {
+    const remainder = number % 1000;
+    const quotient = Math.floor(number / 1000);
+    return units[quotient] + ' mil ' + (remainder > 0 ? numberToWords(remainder) : '');
+  }
+
+  return 'Número fuera del rango soportado';
+}
+
+    document.getElementById('inputForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById('fullName').value;
+      const dni = parseInt(document.getElementById('dni').value, 10);
+      const travelValue = parseFloat(document.getElementById('travelValue').value);
+      const tripsPerDay = parseInt(document.getElementById('tripsPerDay').value, 10);
+      const month = parseInt(document.getElementById('month').value, 10) - 1;
+      const year = parseInt(document.getElementById('year').value, 10);
+      const holidayInput = document.getElementById('holidayInput').value;
+      const holidays = holidayInput.split(',').map(Number);
+
+      const workingDaysArray = filterWorkingDays(year, month, holidays);
+      const totalExpensesPerDay = travelValue * tripsPerDay;
+      const totalExpenses = totalExpensesPerDay * workingDaysArray.length;
+
+      document.getElementById('output').innerHTML = '';
+
+      printArrayElements(workingDaysArray);
+
+      const pElement1 = document.createElement('p');
+      pElement1.textContent = 'Total number of days: ' + workingDaysArray.length;
+      document.getElementById('output').appendChild(pElement1);
+
+      const pElement2 = document.createElement('p');
+      pElement2.textContent = 'Total de gastos de movilidad por día: ' + totalExpensesPerDay;
+      document.getElementById('output').appendChild(pElement2);
+
+      const pElement3 = document.createElement('p');
+      pElement3.textContent = 'Total de gastos de movilidad: ' + totalExpenses;
+      document.getElementById('output').appendChild(pElement3);
+
+      const pElement4 = document.createElement('p');
+      pElement4.textContent = 'Recibí el importe de $: ' + numberToWords(totalExpenses);
+      document.getElementById('output').appendChild(pElement4);
+
+      const pElement5 = document.createElement('p');
+      pElement5.textContent = 'Firmado por: ' + fullName;
+      document.getElementById('output').appendChild(pElement5);
+
+      const pElement6 = document.createElement('p');
+      pElement6.textContent = 'D.N.I.: ' + dni;
+      document.getElementById('output').appendChild(pElement6);
+    });
+  </script>
+</body>
+</html>
