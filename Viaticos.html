@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gastos de Movilidad</title>
+</head>
+<body>
+  
+    <span style="display: inline-block;">
+    <img src="LogoCaba.jpg" width = "40" height = "40" alt="Logo de la CABA">
+    <h2 style="display: inline; margin-left: 10px;"> DGR/AGIP - GASTOS DE MOVILIDAD - v.1.00 (https://vincenzo.one/) </h2>
+    </span>
+
+    <h2>Medio de transporte utilizado: Público, desde CABA a CABA</h2>
+
+
+    <form id="inputForm">
+
+    <label for="department">Departamento:</label>
+    <input type="text" id="department" required><br>
+
+    <label for="sector">División:</label>
+    <input type="number" id="dni" required><br>
+
+    <label for="fullName">Apellido y nombre:</label>
+    <input type="text" id="fullName" required><br>
+
+    <label for="dni">D.N.I.:</label>
+    <input type="number" id="dni" required><br>
+
+    <label for="travelValue">Valor del viaje (valor entero, sin decimales):</label>
+    <input type="number" id="travelValue" step="0.01" required><br>
+
+    <label for="tripsPerDay">Nº de viajes por día:</label>
+    <input type="number" id="tripsPerDay" required><br>
+
+    <label for="month">Mes (1-12):</label>
+    <input type="number" id="month" min="1" max="12" required><br>
+
+    <label for="year">Año:</label>
+    <input type="number" id="year" required><br>
+
+    <label for="holidayInput">Días feriados, asuetos, licencias y ausencias (separados por comas; si no hubo, ingresar 0 ):</label>
+    <input type="text" id="holidayInput" required><br>
+
+    <button type="submit">Calcular</button>
+  </form>
+
+  
+   <h2>Días laborables:</h2>
+  <div id="output"></div>
+
+  <script>
+    function getDaysInMonth(year, month) {
+      return new Date(year, month + 1, 0).getDate();
+    }
+
+    function isHoliday(day, holidays) {
+      return holidays.includes(day);
+    }
+
+    function isNonWorkingDay(day) {
+      const weekday = new Date(day).getDay();
+      return weekday === 0 || weekday === 6; // Sunday (0) or Saturday (6)
+    }
+
+    function filterWorkingDays(year, month, holidays) {
+      const workingDays = [];
+      const totalDays = getDaysInMonth(year, month);
+
+      for (let day = 1; day <= totalDays; day++) {
+        const currentDate = new Date(year, month, day);
+
+        if (!isHoliday(day, holidays) && !isNonWorkingDay(currentDate)) {
+          workingDays.push(currentDate);
+        }
+      }
+
+      return workingDays;
+    }
+
+    function printArrayElements(array) {
+      array.forEach((element) => {
+        const formattedDate = element.toDateString();
+        const pElement = document.createElement('p');
+        pElement.textContent = formattedDate;
+        document.getElementById('output').appendChild(pElement);
+      });
+    }
+
+    function numberToWords(number) {
+  const units = ['', 'ún', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
+  const tens = ['', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+  const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
+
+  if (number < 20) {
+    return units[number];
+  }
+
+  if (number < 100) {
+    const remainder = number % 10;
+    const quotient = Math.floor(number / 10);
+    return tens[quotient] + (remainder > 0 ? ' y ' + units[remainder] : '');
+  }
+
+  if (number < 1000) {
+    const remainder = number % 100;
+    const quotient = Math.floor(number / 100);
+    return hundreds[quotient] + (remainder > 0 ? ' ' + numberToWords(remainder) : '');
+  }
+
+  if (number < 10000) {
+    const remainder = number % 1000;
+    const quotient = Math.floor(number / 1000);
+    return units[quotient] + ' mil' + (remainder > 0 ? ' ' + numberToWords(remainder) : '');
+  }
+
+  if (number < 100000) {
+    const remainder = number % 1000;
+    const quotient = Math.floor(number / 1000);
+    return numberToWords(quotient) + ' mil' + (remainder > 0 ? ' ' + numberToWords(remainder) : '');
+  }
+
+  return 'Número fuera del rango soportado';
+}
+
+    document.getElementById('inputForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById('fullName').value;
+      const dni = parseInt(document.getElementById('dni').value, 10);
+      const travelValue = parseFloat(document.getElementById('travelValue').value);
+      const tripsPerDay = parseInt(document.getElementById('tripsPerDay').value, 10);
+      const month = parseInt(document.getElementById('month').value, 10) - 1;
+      const year = parseInt(document.getElementById('year').value, 10);
+      const holidayInput = document.getElementById('holidayInput').value;
+      const holidays = holidayInput.split(',').map(Number);
+
+      const workingDaysArray = filterWorkingDays(year, month, holidays);
+      const totalExpensesPerDay = travelValue * tripsPerDay;
+      const totalExpenses = totalExpensesPerDay * workingDaysArray.length;
+
+      document.getElementById('output').innerHTML = '';
+
+      printArrayElements(workingDaysArray);
+
+      const pElement1 = document.createElement('p');
+      pElement1.textContent = 'Total de días laborables: ' + workingDaysArray.length;
+      document.getElementById('output').appendChild(pElement1);
+
+      const pElement2 = document.createElement('p');
+      pElement2.textContent = 'Total de gastos de movilidad por día: ' + totalExpensesPerDay + ".-";
+      document.getElementById('output').appendChild(pElement2);
+
+      const pElement3 = document.createElement('p');
+      pElement3.textContent = 'Total de gastos de movilidad del mes: ' + totalExpenses + ".-";
+      document.getElementById('output').appendChild(pElement3);
+
+      const pElement4 = document.createElement('p');
+      pElement4.textContent = 'Recibí el importe de pesos: ' + numberToWords(totalExpenses) + ".-";
+      document.getElementById('output').appendChild(pElement4);
+
+      const pElement5 = document.createElement('p');
+      pElement5.textContent = 'Firmado por: ' + fullName;
+      document.getElementById('output').appendChild(pElement5);
+
+            
+    });
+  </script>
+</body>
+</html>
