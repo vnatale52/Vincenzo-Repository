@@ -83,6 +83,8 @@
   const units = ['', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
   const tens = ['', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
   const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
+  const thousands = ['', 'un mil', 'dos mil', 'tres mil', 'cuatro mil', 'cinco mil', 'seis mil', 'siete mil', 'ocho mil', 'nueve mil'];
+  
 
   if (number < 20) {
     return units[number];
@@ -101,11 +103,12 @@
   if (number < 10000) {
     const remainder = number % 1000;
     const quotient = Math.floor(number / 1000);
-    return units[quotient] + ' mil ' + (remainder > 0 ? numberToWords(remainder) : '');
+    return thousands[quotient] + " " + (remainder > 0 ? numberToWords(remainder) : '');
+  
   }
-
-  return 'Número fuera del rango soportado';
-}
+ 
+return 'Número fuera del rango soportado';
+  }
 
     document.getElementById('inputForm').addEventListener('submit', function (event) {
       event.preventDefault();
