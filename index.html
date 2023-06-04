@@ -4,16 +4,23 @@
   <title>Gastos de Movilidad</title>
 </head>
 <body>
-  <h2> DGR/AGIP - GASTOS DE MOVILIDAD - DEPARTAMENTO A - DIVISION 1</h1>
+  <h2> DGR/AGIP - GASTOS DE MOVILIDAD </h1>
 
   <form id="inputForm">
+
+    <label for="department">Departamento:</label>
+    <input type="text" id="department" required><br>
+
+    <label for="sector">División:</label>
+    <input type="number" id="dni" required><br>
+
     <label for="fullName">Apellido y Nombre:</label>
     <input type="text" id="fullName" required><br>
 
     <label for="dni">D.N.I.:</label>
     <input type="number" id="dni" required><br>
 
-    <label for="travelValue">Valor del Viaje:</label>
+    <label for="travelValue">Valor del Viaje (valor entero, sin decimales):</label>
     <input type="number" id="travelValue" step="0.01" required><br>
 
     <label for="tripsPerDay">Nro. de Viajes por día:</label>
@@ -25,7 +32,7 @@
     <label for="year">Año:</label>
     <input type="number" id="year" required><br>
 
-    <label for="holidayInput">Días feriados y licencias ( separados por comas; si no hubo, ingresar 0 ):</label>
+    <label for="holidayInput">Días feriados, asuetos, licencias, ausencias ( separados por comas; si no hubo, ingresar 0 ):</label>
     <input type="text" id="holidayInput" required><br>
 
     <button type="submit">Calcular</button>
@@ -137,9 +144,10 @@
       document.getElementById('output').appendChild(pElement4);
 
       const pElement5 = document.createElement('p');
-      pElement5.textContent = 'Firmado por: ' + fullName + ' - D.N.I.: ' + dni;
+      pElement5.textContent = 'Firmado por: ' + fullName;
       document.getElementById('output').appendChild(pElement5);
-      
+
+            
     });
   </script>
 </body>
