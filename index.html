@@ -4,10 +4,16 @@
   <title>Gastos de Movilidad</title>
 </head>
 <body>
-  <h2> DGR/AGIP - GASTOS DE MOVILIDAD  -  v. 1.00  ( https://vincenzo.one/ ) </h1>
-  <h2>Medio de transporte utilizado: Público, desde CABA a CABA</h2>
+  
+    <span style="display: inline-block;">
+    <img src="LogoCaba.jpg" width = "40" height = "40" alt="Logo de la CABA">
+    <h2 style="display: inline; margin-left: 10px;"> DGR/AGIP - GASTOS DE MOVILIDAD - v.1.00 (https://vincenzo.one/) </h2>
+    </span>
 
-  <form id="inputForm">
+    <h2>Medio de transporte utilizado: Público, desde CABA a CABA</h2>
+
+
+    <form id="inputForm">
 
     <label for="department">Departamento:</label>
     <input type="text" id="department" required><br>
@@ -38,6 +44,7 @@
 
     <button type="submit">Calcular</button>
   </form>
+
   
    <h2>Días laborables:</h2>
   <div id="output"></div>
@@ -149,7 +156,7 @@
       document.getElementById('output').appendChild(pElement3);
 
       const pElement4 = document.createElement('p');
-      pElement4.textContent = 'Recibí conforme el importe de pesos: ' + numberToWords(totalExpenses) + ".-";
+      pElement4.textContent = 'Recibí el importe de Pesos: ' + numberToWords(totalExpenses) + ".-";
       document.getElementById('output').appendChild(pElement4);
 
       const pElement5 = document.createElement('p');
