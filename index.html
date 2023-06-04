@@ -83,32 +83,37 @@
   const units = ['', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
   const tens = ['', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
   const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
-  const thousands = ['', 'un mil', 'dos mil', 'tres mil', 'cuatro mil', 'cinco mil', 'seis mil', 'siete mil', 'ocho mil', 'nueve mil'];
-  
 
   if (number < 20) {
     return units[number];
   }
 
   if (number < 100) {
-    return tens[Math.floor(number / 10)] + ' ' + units[number % 10];
+    const remainder = number % 10;
+    const quotient = Math.floor(number / 10);
+    return tens[quotient] + (remainder > 0 ? ' y ' + units[remainder] : '');
   }
 
   if (number < 1000) {
     const remainder = number % 100;
     const quotient = Math.floor(number / 100);
-    return hundreds[quotient] + ' ' + (remainder > 0 ? 'y ' + numberToWords(remainder) : '');
+    return hundreds[quotient] + (remainder > 0 ? ' ' + numberToWords(remainder) : '');
   }
 
   if (number < 10000) {
     const remainder = number % 1000;
     const quotient = Math.floor(number / 1000);
-    return thousands[quotient] + " " + (remainder > 0 ? numberToWords(remainder) : '');
-  
+    return units[quotient] + ' mil' + (remainder > 0 ? ' ' + numberToWords(remainder) : '');
   }
- 
-return 'Número fuera del rango soportado';
+
+  if (number < 100000) {
+    const remainder = number % 1000;
+    const quotient = Math.floor(number / 1000);
+    return numberToWords(quotient) + ' mil' + (remainder > 0 ? ' ' + numberToWords(remainder) : '');
   }
+
+  return 'Número fuera del rango soportado';
+}
 
     document.getElementById('inputForm').addEventListener('submit', function (event) {
       event.preventDefault();
