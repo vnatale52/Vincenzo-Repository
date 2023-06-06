@@ -5,42 +5,32 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Business website</title>
+
+
+    <title>Website Counter</title>
+    <script defer src="pagecounter.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+
   </head>
-  <body>
-    <p>This page is under construction. I apologize for the inconvenience</p>
-    <p>Number of visitors starting from 06-06-2023  : <span id="visitorCounter">0</span></p>
+  
+   <body>
+    <p> This page is under construction </p> 
+    
+    <div>Website visit count starting from 06-06-2023:</div>
+    <div class="website-counter"></div>
+    <!-- button id="reset">Reset</button /> -->
+   
     <p> Haz click en alguna de estas 2 páginas: </p> 
+
+
     <nav>
       <a href="./Viaticos.html">Viáticos</a> |
       <a href="./Recomendado.html">LecturaRecomendada</a> |
     </nav>
 
-  	<script>
-	// Get the visitor counter element
-	var visitorCounter = document.getElementById('visitorCounter');
-
-	// Check if the visitor count is already stored in local storage
-	if (localStorage.getItem('visitorCount')) {
-	  // If it exists, retrieve the count and update the visitor counter element
-	  var count = parseInt(localStorage.getItem('visitorCount'));
-	  visitorCounter.textContent = count;
-	} else {
-	  // If it doesn't exist, set the visitor count to 1 and update the visitor counter element
-	  var count = 1;
-	  visitorCounter.textContent = count;
-	}
-
-	// Increment the visitor count and update the visitor counter element
-	count++;
-	visitorCounter.textContent = count;
-
-	// Store the updated visitor count in local storage
-	localStorage.setItem('visitorCount', count.toString());
-	<script>
-
-
-	</body>
-	</html>
+    </body>
+   
+</html>
 
 
 
