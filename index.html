@@ -7,13 +7,43 @@
     <title>Business website</title>
   </head>
   <body>
+    <p>Number of visitors: <span id="visitorCounter">0</span></p>
     <p> Haz click en alguna de estas 2 páginas: </p> 
     <nav>
       <a href="./Viaticos.html">Viáticos</a> |
       <a href="./Recomendado.html">LecturaRecomendada</a> |
     </nav>
 
-  </body>
-</html>
+  	<script>
+	// Get the visitor counter element
+	var visitorCounter = document.getElementById('visitorCounter');
+
+	// Check if the visitor count is already stored in local storage
+	if (localStorage.getItem('visitorCount')) {
+	  // If it exists, retrieve the count and update the visitor counter element
+	  var count = parseInt(localStorage.getItem('visitorCount'));
+	  visitorCounter.textContent = count;
+	} else {
+	  // If it doesn't exist, set the visitor count to 1 and update the visitor counter element
+	  var count = 1;
+	  visitorCounter.textContent = count;
+	}
+
+	// Increment the visitor count and update the visitor counter element
+	count++;
+	visitorCounter.textContent = count;
+
+	// Store the updated visitor count in local storage
+	localStorage.setItem('visitorCount', count.toString());
+	<script>
+
+
+	</body>
+	</html>
+
+
+
+
+
 
 
