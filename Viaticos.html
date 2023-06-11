@@ -2,12 +2,27 @@
 <html>
 <head>
   <title>Gastos de Movilidad</title>
+
+<style>
+  .row {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .column {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    text-align: center;
+  }
+</style>
+
 </head>
 <body>
   
     <span style="display: inline-block;">
     <img src="LogoCaba.jpg" width = "30" height = "30" alt="Logo de la CABA">
-    <h3 style="display: inline; margin-left: 10px;"> DGR/AGIP - GASTOS DE MOVILIDAD      -     v. 1.00 </h2>
+    <h3 style="display: inline; margin-left: 10px;"> DGR/AGIP - GASTOS DE MOVILIDAD      -     v. 1.01 </h2>
     </span>
 
     <h3>Medio de transporte utilizado: Público, desde CABA a CABA</h2>
@@ -27,7 +42,7 @@
     <input type="number" id="dni" required><br>
 
     <label for="travelValue">Valor del viaje (valor entero, sin decimales):</label>
-    <input type="number" id="travelValue" step="1" required><br>
+    <input type="number" id="travelValue" step="0.01" required><br>
 
     <label for="tripsPerDay">Nº de viajes por día:</label>
     <input type="number" id="tripsPerDay" required><br>
@@ -78,16 +93,36 @@
     }
 
     
-    function printArrayElements(array) {
-    array.forEach((element) => {
-    const options = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
-    const formattedDate = element.toLocaleDateString('es-ES', options);
-    const capitalizedDate = formattedDate.replace(/^\w/, (c) => c.toUpperCase()); // Capitalize first letter
-    const pElement = document.createElement('p');
-    pElement.textContent = capitalizedDate;
-    document.getElementById('output').appendChild(pElement);
-  });
+function printArrayElements(array) {
+  const outputElement = document.getElementById('output');
+  const columnWidth = 25; // Adjust the column width as needed
+  const columnCount = 4; // Adjust the number of columns as needed
+  
+  for (let i = 0; i < array.length; i += columnCount) {
+    const row = document.createElement('div');
+    row.classList.add('row');
+    
+    for (let j = i; j < i + columnCount; j++) {
+      if (j < array.length) {
+        const currentDate = array[j];
+        
+        const options = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('es-ES', options);
+        const capitalizedDate = formattedDate.replace(/^\w/, (c) => c.toUpperCase());
+        
+        const column = document.createElement('div');
+        column.classList.add('column');
+        column.textContent = capitalizedDate.padEnd(columnWidth);
+        
+        row.appendChild(column);
+      }
+    }
+    
+    outputElement.appendChild(row);
+  }
 }
+
+
 
     function numberToWords(number) {
   const units = ['', 'ún', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
