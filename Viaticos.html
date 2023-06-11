@@ -205,13 +205,18 @@ function numberToWords(number) {
       const pElement4 = document.createElement('p');
       pElement4.textContent = 'Recibí conforme el importe de pesos: ' + numberToWords(totalExpenses) + ".-";
       document.getElementById('output').appendChild(pElement4);
-
+      
       const pElement5 = document.createElement('p');
-      pElement5.textContent = 'Firmado por: ' + fullName;
+      pElement5.textContent = '                    Firmado por: ' + fullName;
       document.getElementById('output').appendChild(pElement5);
 
-         
+
+     
     });
   </script>
+
+<p>  CABA, <script>document.write(new Date().toLocaleDateString('es-ES'))</script> </p>
+
+
 </body>
 </html>
