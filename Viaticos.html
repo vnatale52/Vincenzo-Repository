@@ -54,7 +54,7 @@
     <label for="year">Año:</label>
     <input type="number" id="year" required><br>
 
-    <label for="holidayInput">Feriados, asuetos, licencias y ausencias (separados por comas; si no hubo, ingresa 0):</label>
+    <label for="holidayInput">Feriados, asuetos, licencias, etc. (separados por comas; si no hubo, ingresa 0):</label>
     <input type="text" id="holidayInput" required><br>
 
     <button type="submit">Calcula el total de viáticos del mes</button>
@@ -129,7 +129,7 @@ function printArrayElements(array) {
   const filteredHolidays = uniqueHolidays.filter(holiday => holiday !== 0);
   const holidayCount = filteredHolidays.length;
   const totalHolidaysElement = document.createElement('p');
-  totalHolidaysElement.textContent = 'Total de días feriados, asuetos, licencias y ausencias, cargados en el mes (sin incluir sábados ni domingos) : ' + holidayCount;
+  totalHolidaysElement.textContent = 'Total de días feriados, asuetos, licencias y ausencias en el mes (sin incluir sábados ni domingos) : ' + holidayCount;
   outputElement.appendChild(totalHolidaysElement);
   
 
