@@ -93,38 +93,48 @@
     }
 
     
+
 function printArrayElements(array) {
   const outputElement = document.getElementById('output');
   const columnWidth = 25; // Adjust the column width as needed
   const columnCount = 4; // Adjust the number of columns as needed
-  
+
   for (let i = 0; i < array.length; i += columnCount) {
     const row = document.createElement('div');
     row.classList.add('row');
-    
+
     for (let j = i; j < i + columnCount; j++) {
       if (j < array.length) {
         const currentDate = array[j];
-        
+
         const options = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
         const formattedDate = currentDate.toLocaleDateString('es-ES', options);
         const capitalizedDate = formattedDate.replace(/^\w/, (c) => c.toUpperCase());
-        
+
         const column = document.createElement('div');
         column.classList.add('column');
         column.textContent = capitalizedDate.padEnd(columnWidth);
-        
+
         row.appendChild(column);
       }
     }
-    
+
     outputElement.appendChild(row);
   }
+
+  const holidayInputValue = document.getElementById('holidayInput').value;
+  const holidays = holidayInputValue.split(',').map(Number);
+  const uniqueHolidays = Array.from(new Set(holidays));
+  const filteredHolidays = uniqueHolidays.filter(holiday => holiday !== 0);
+  const holidayCount = filteredHolidays.length;
+  const totalHolidaysElement = document.createElement('p');
+  totalHolidaysElement.textContent = 'Total de días feriados, asuetos, licencias y ausencias, cargados en el mes (sin incluir sábados ni domingos) : ' + holidayCount;
+  outputElement.appendChild(totalHolidaysElement);
+  
+
 }
 
-
-
-    function numberToWords(number) {
+function numberToWords(number) {
   const units = ['', 'ún', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve', 'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve'];
   const tens = ['', '', 'veinte', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
   const hundreds = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos', 'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
@@ -200,7 +210,7 @@ function printArrayElements(array) {
       pElement5.textContent = 'Firmado por: ' + fullName;
       document.getElementById('output').appendChild(pElement5);
 
-            
+         
     });
   </script>
 </body>
