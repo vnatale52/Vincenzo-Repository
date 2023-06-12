@@ -15,6 +15,11 @@
     border: 1px solid black;
     text-align: center;
   }
+
+  #holidayInput {
+    width: 520px; /* Adjust the width value as needed */
+  }
+
 </style>
 
 </head>
@@ -54,7 +59,7 @@
     <label for="year">Año:</label>
     <input type="number" id="year" required><br>
 
-    <label for="holidayInput">Feriados, licencias, etc. ( separados por comas: 4,5,6,7  ; si no hubo, ingresa 0 ):</label>
+    <label for="holidayInput">Feriados, licencias, etc.(separados por comas, ej.: 4,5,6,7  y si no hubo, ingresa 0):</label>
     <input type="text" id="holidayInput" required><br>
 
     <button type="submit">Calcula el total de viáticos del mes</button>
