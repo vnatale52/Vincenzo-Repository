@@ -180,7 +180,7 @@ function numberToWords(number) {
       const tripsPerDay = parseInt(document.getElementById('tripsPerDay').value, 10);
       const month = parseInt(document.getElementById('month').value, 10) - 1;
       const year = parseInt(document.getElementById('year').value, 10);
-      const holidayInput = document.getElementById('holidayInput').value, 10;
+      const holidayInput = document.getElementById('holidayInput').value;
       const holidays = holidayInput.split(',').map(Number);
 
       const workingDaysArray = filterWorkingDays(year, month, holidays);
