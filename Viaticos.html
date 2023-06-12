@@ -180,7 +180,7 @@ function numberToWords(number) {
       const tripsPerDay = parseInt(document.getElementById('tripsPerDay').value, 10);
       const month = parseInt(document.getElementById('month').value, 10) - 1;
       const year = parseInt(document.getElementById('year').value, 10);
-      const holidayInput = document.getElementById('holidayInput').value;
+      const holidayInput = document.getElementById('holidayInput').value, 10;
       const holidays = holidayInput.split(',').map(Number);
 
       const workingDaysArray = filterWorkingDays(year, month, holidays);
@@ -208,7 +208,7 @@ function numberToWords(number) {
       document.getElementById('output').appendChild(pElement4);
       
       const pElement5 = document.createElement('p');
-      pElement5.textContent = '                    Firmado por: ' + fullName;
+      pElement5.textContent = 'Firmado por: ' + fullName;
       document.getElementById('output').appendChild(pElement5);
 
   
