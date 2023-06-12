@@ -47,8 +47,8 @@
     <label for="dni">D.N.I.:</label>
     <input type="number" id="dni" required><br>
 
-    <label for="travelValue">Valor del viaje $ (valor entero, sin decimales):</label>
-    <input type="number" id="travelValue" step="0.01" required><br>
+    <label for="travelValue">Valor del viaje  (valor entero, sin decimales) : $ </label>
+    <input type="number" id="travelValue" step="1" required><br>
 
     <label for="tripsPerDay">Cantidad de viajes por día:</label>
     <input type="number" id="tripsPerDay" required><br>
@@ -201,11 +201,11 @@ function numberToWords(number) {
       document.getElementById('output').appendChild(pElement1);
 
       const pElement2 = document.createElement('p');
-      pElement2.textContent = 'Total de gastos de movilidad por día $ : ' + totalExpensesPerDay + ".-";
+      pElement2.textContent = 'Total de gastos de movilidad por día : $ ' + totalExpensesPerDay + ".-";
       document.getElementById('output').appendChild(pElement2);
 
       const pElement3 = document.createElement('p');
-      pElement3.textContent = 'Total de gastos de movilidad del mes $ : ' + totalExpenses + ".-";
+      pElement3.textContent = 'Total de gastos de movilidad del mes : $ ' + totalExpenses + ".-";
       document.getElementById('output').appendChild(pElement3);
 
       const pElement4 = document.createElement('p');
