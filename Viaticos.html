@@ -197,7 +197,7 @@ function numberToWords(number) {
       printArrayElements(workingDaysArray);
 
       const pElement1 = document.createElement('p');
-      pElement1.textContent = 'Total de días trabajados en el mes: ' + workingDaysArray.length;
+      pElement1.textContent = 'Total de días trabajados en el mes : ' + workingDaysArray.length;
       document.getElementById('output').appendChild(pElement1);
 
       const pElement2 = document.createElement('p');
@@ -209,11 +209,11 @@ function numberToWords(number) {
       document.getElementById('output').appendChild(pElement3);
 
       const pElement4 = document.createElement('p');
-      pElement4.textContent = 'Recibí conforme el importe de pesos: ' + numberToWords(totalExpenses) + ".-";
+      pElement4.textContent = 'Recibí conforme el importe de pesos : ' + numberToWords(totalExpenses) + ".-";
       document.getElementById('output').appendChild(pElement4);
       
       const pElement5 = document.createElement('p');
-      pElement5.textContent = 'Firmado por: ' + fullName;
+      pElement5.textContent = 'Firmado por : ' + fullName;
       document.getElementById('output').appendChild(pElement5);
 
   
