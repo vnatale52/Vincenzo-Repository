@@ -113,7 +113,7 @@ function printArrayElements(array) {
       if (j < array.length) {
         const currentDate = array[j];
 
-        const options = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' };
+        const options = { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' };
         const formattedDate = currentDate.toLocaleDateString('es-ES', options);
         const capitalizedDate = formattedDate.replace(/^\w/, (c) => c.toUpperCase());
 
