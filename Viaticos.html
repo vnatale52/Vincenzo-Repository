@@ -220,7 +220,8 @@ function numberToWords(number) {
     });
   </script>
 
-<p>  CABA, <script>document.write(new Date().toLocaleDateString('es-ES'))</script> </p>
+<p> CABA, <script> const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; document.write(new Date().toLocaleDateString('es-ES', options))</script> </p>
+
 
 </body>
 </html>
